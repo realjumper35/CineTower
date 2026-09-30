@@ -1,0 +1,23 @@
+meta {
+  name: 03 Catalogue (fr)
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{cineplexBaseUrl}}/movies?language=fr
+  body: none
+  auth: none
+}
+
+params:query {
+  language: fr
+}
+
+headers {
+  Ocp-Apim-Subscription-Key: {{process.env.CINEPLEX_SUBSCRIPTION_KEY}}
+}
+
+docs {
+  Q1 : les id relevés en 02 sont-ils identiques ici ?
+}

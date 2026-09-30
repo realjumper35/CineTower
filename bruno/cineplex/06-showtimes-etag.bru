@@ -1,0 +1,28 @@
+meta {
+  name: 06 Séances, requête conditionnelle
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{cineplexBaseUrl}}/showtimes?language=fr&locationId=9406&date={{showDate}}
+  body: none
+  auth: none
+}
+
+params:query {
+  language: fr
+  locationId: 9406
+  date: {{showDate}}
+}
+
+headers {
+  Ocp-Apim-Subscription-Key: {{process.env.CINEPLEX_SUBSCRIPTION_KEY}}
+  If-None-Match: 
+}
+
+docs {
+  Q4 : lancer juste après 04. Copier l'en-tête ETag de la réponse 04 dans
+  If-None-Match. 304 = requêtes conditionnelles prises en charge.
+  Si 04 ne renvoie pas d'ETag, la réponse à Q4 est déjà non.
+}

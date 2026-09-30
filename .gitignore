@@ -1,0 +1,6 @@
+# Secrets (CLAUDE.md §5.1) — à toute profondeur
+.env
+
+# IDE et build
+.idea/
+target/

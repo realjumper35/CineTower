@@ -1,0 +1,6 @@
+{
+  "version": "1",
+  "name": "CinemaTower",
+  "type": "collection",
+  "ignore": ["node_modules", ".git"]
+}

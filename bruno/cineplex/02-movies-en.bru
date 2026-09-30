@@ -1,0 +1,24 @@
+meta {
+  name: 02 Catalogue (en)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{cineplexBaseUrl}}/movies?language=en
+  body: none
+  auth: none
+}
+
+params:query {
+  language: en
+}
+
+headers {
+  Ocp-Apim-Subscription-Key: {{process.env.CINEPLEX_SUBSCRIPTION_KEY}}
+}
+
+docs {
+  Q1 : noter les id de quelques films, puis lancer 03.
+  Réponse attendue sous items (source tierce, à vérifier).
+}
