@@ -1,0 +1,24 @@
+meta {
+  name: 05 Séances sans date
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{cineplexBaseUrl}}/showtimes?language=fr&locationId=9406
+  body: none
+  auth: none
+}
+
+params:query {
+  language: fr
+  locationId: 9406
+}
+
+headers {
+  Ocp-Apim-Subscription-Key: {{process.env.CINEPLEX_SUBSCRIPTION_KEY}}
+}
+
+docs {
+  Q7 : combien de jours dans dates[] quand on n'envoie pas de date ?
+}

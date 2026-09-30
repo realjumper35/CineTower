@@ -1,0 +1,19 @@
+meta {
+  name: 07 Sans clé
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{cineplexBaseUrl}}/theatres?language=fr
+  body: none
+  auth: none
+}
+
+params:query {
+  language: fr
+}
+
+docs {
+  Q5 : clé absente. Noter le code HTTP et le corps exact, puis lancer 08.
+}

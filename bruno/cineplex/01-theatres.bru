@@ -1,0 +1,24 @@
+meta {
+  name: 01 Répertoire des cinémas
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{cineplexBaseUrl}}/theatres?language=fr
+  body: none
+  auth: none
+}
+
+params:query {
+  language: fr
+}
+
+headers {
+  Ocp-Apim-Subscription-Key: {{process.env.CINEPLEX_SUBSCRIPTION_KEY}}
+}
+
+docs {
+  Q1b : relancer avec language=en et comparer le nom du cinéma 9406.
+  Déjà exécutée en fr le 2026-09-29 (constats dans sources.md).
+}

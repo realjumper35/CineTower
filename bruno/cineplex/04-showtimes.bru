@@ -1,0 +1,30 @@
+meta {
+  name: 04 Séances d'un cinéma
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{cineplexBaseUrl}}/showtimes?language=fr&locationId=9406&date={{showDate}}
+  body: none
+  auth: none
+}
+
+params:query {
+  language: fr
+  locationId: 9406
+  date: {{showDate}}
+}
+
+headers {
+  Ocp-Apim-Subscription-Key: {{process.env.CINEPLEX_SUBSCRIPTION_KEY}}
+}
+
+docs {
+  Q2 : deux exécutions à quelques heures d'écart ; vistaSessionId stable ?
+        Puis un second cinéma (9172) : unique par cinéma ou global ?
+  Q3 : quels champs de séance changent entre deux exécutions ?
+  Q6 : sur Vancouver (1422), showStartDateTime porte-t-il un décalage ?
+        Comparer avec l'heure affichée sur cineplex.com.
+  Noms de paramètres et format de date : à vérifier dans l'onglet Réseau.
+}
