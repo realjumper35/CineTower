@@ -86,8 +86,7 @@ Règles :
 
 1. **Clés d'API.** La clé Cineplex vit dans un `.env` ignoré par Git, sous
    `CINEPLEX_SUBSCRIPTION_KEY`. Jamais dans le code, un fichier versionné, un log,
-   un message de commit ou une réponse. Ne jamais lire ni afficher le contenu de
-   `.env`. Même règle pour toute clé d'une future source.
+   un message de commit ou une réponse.
 2. **401 = échec bruyant.** Un refus de clé arrête la collecte de cette source avec
    un message explicite. **Jamais** de ré-extraction automatique de la clé depuis le
    site de la source, même si des projets tiers le font. Si les réponses le

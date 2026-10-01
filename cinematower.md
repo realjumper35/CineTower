@@ -18,7 +18,7 @@ est le **diff**, pas un catalogue.
 
 ## Technique
 
-Java 21, Spring Boot 3, PostgreSQL, Thymeleaf.
+Java 25, Spring Boot 4, PostgreSQL, Thymeleaf (D-006).
 
 ## Feuille de route
 
