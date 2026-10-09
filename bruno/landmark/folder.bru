@@ -1,0 +1,15 @@
+meta {
+  name: Landmark
+  seq: 2
+}
+
+docs {
+  Reconnaissance du 2026-10-09 (sources.md, Landmark) : hors navigateur,
+  curl reçoit 403 Access Denied (Akamai, errors.edgesuite.net) sur l'API et
+  sur les pages. Ces requêtes servent à constater si Bruno subit le même
+  refus (Q16).
+
+  Ne pas ajouter d'en-têtes qui imitent un navigateur (User-Agent, Origin,
+  Referer, cookies copiés) pour faire passer la requête : ce serait du
+  contournement d'anti-robots, exclu (decisions.md, En attente).
+}

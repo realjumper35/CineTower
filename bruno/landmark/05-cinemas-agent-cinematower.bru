@@ -1,0 +1,24 @@
+meta {
+  name: 05 Cinémas avec l'agent CinemaTower
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{landmarkApiUrl}}/cinemas/{{landmarkCircuit}}
+  body: none
+  auth: none
+}
+
+headers {
+  User-Agent: CinemaTower/0.1 (projet etudiant)
+}
+
+docs {
+  Même appel que 01, avec l'agent que le collecteur enverra. Teste seulement
+  l'hypothèse de l'agent : la pile réseau reste celle de Bruno (Node), donc
+  l'empreinte TLS n'est pas celle de Java. Le test complet se fait depuis
+  Java (jshell, voir Q16 dans sources.md).
+  Agent honnête, qui se déclare comme robot : ce n'est pas une imitation de
+  navigateur. Ne jamais remplacer cette valeur par un agent de navigateur.
+}

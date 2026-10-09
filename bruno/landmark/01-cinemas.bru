@@ -1,0 +1,18 @@
+meta {
+  name: 01 Cinémas
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{landmarkApiUrl}}/cinemas/{{landmarkCircuit}}
+  body: none
+  auth: none
+}
+
+docs {
+  Répertoire des cinémas de la chaîne (circuit 22). Endpoint lu dans le code
+  du site (/bundles/scripts), jamais obtenu avec succès : 403 avec curl.
+  Si 200 : relever l'id de Kanata (pour comparer les FilmId entre cinémas)
+  et chercher un champ de fuseau horaire.
+}

@@ -1,0 +1,21 @@
+meta {
+  name: 04 Infos d'un cinéma
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{landmarkSiteUrl}}/umbraco/api/baseapi/GetCinemaInfo?cinemaId={{landmarkCinemaId}}
+  body: none
+  auth: none
+}
+
+params:query {
+  cinemaId: {{landmarkCinemaId}}
+}
+
+docs {
+  Adresse, province, latitude et longitude du cinéma ; aucun fuseau horaire
+  (relevé du 2026-10-09 dans le navigateur). Réponse : une chaîne JSON qui
+  contient du JSON (double encodage).
+}

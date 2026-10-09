@@ -1,0 +1,27 @@
+meta {
+  name: 02 Séances d'un cinéma
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{landmarkApiUrl}}/movies/{{landmarkCircuit}}/{{landmarkCinemaId}}?expandGenres=true&splitByAttributes=true&expandSessions=true
+  body: none
+  auth: none
+}
+
+params:query {
+  expandGenres: true
+  splitByAttributes: true
+  expandSessions: true
+}
+
+docs {
+  Fiches et séances d'un cinéma (193 = Orleans), toutes semaines publiées.
+  Depuis le navigateur le 2026-10-09 : 200, 60 fiches, environ 42 ko
+  compressé. Avec curl : 403 Akamai.
+  Si 200 :
+  - Scheduleid et ExternalSessionId stables d'un jour à l'autre ?
+  - Même FilmId pour un film dans un autre cinéma (Kanata) ?
+  - Enregistrer la réponse brute comme fixture pour l'adaptateur.
+}

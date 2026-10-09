@@ -111,6 +111,11 @@ celle qui la remplace.
 - Exclut : la recherche par titre seul (homonymes, ressorties type « Akira 4K »,
   événements) ; un envoi bloqué par un rapprochement raté ; un identifiant de
   source comme clé de film hors de son adaptateur (D-002).
+- ⚠ 2026-10-09 (`sources.md`, `/movies`) : Cineplex ne fournit aucun
+  identifiant externe, donc la première marche de la cascade n'existe pas pour
+  lui. L'« année » de `releaseDate` est celle de la sortie canadienne, et une
+  reprise garde son ancienne date (E.T. 2019) : titre + année échouera sur les
+  reprises, qui iront dans la file manuelle. Sans effet sur l'étape 1.
 
 **D-010 — Titres : par défaut, le titre français et le titre anglais, tels que la source les publie.** _(2026-10-09)_
 - Raison : au Québec les titres diffèrent (« Rapide et dangereux » / « Fast and
@@ -125,6 +130,8 @@ celle qui la remplace.
   FR et un titre EN par film, mais une fiche par version avec son propre titre.
   « Les deux titres » ne peut venir que du regroupement des fiches VF/VO, donc
   de TMDB. En attendant, chaque fiche s'affiche avec son titre. Revoir après Q1.
+  Q1 levée (2026-10-09) : le `name` d'une fiche ne change pas avec `language`.
+  Réécriture proposée dans « En attente ».
 
 **D-011 — Collecte quotidienne ; le courriel et la page ne lisent que la base.** _(2026-10-09)_
 - Raison : la lecture ne dépend pas de la disponibilité de la source, et
@@ -175,12 +182,71 @@ tranchées ; on les promeut en `D-NNN` au moment de la validation.
 - **Cinémas collectés** : seulement ceux qui ont au moins un abonné (empreinte
   minimale) ; un cinéma nouvellement suivi n'a que « À l'affiche » la première
   semaine. À confirmer à l'étape 5.
+- **Collecte Cineplex = `/showtimes?language=fr` seul** (proposition du
+  2026-10-09) : un appel par cinéma et par jour, pas d'appel `/movies` à
+  l'étape 1. Raison : `/showtimes` porte déjà tout ce qu'il faut au diff et au
+  rendu ; `fr` est le sur-ensemble des fiches (VF comprises) ; empreinte
+  minimale (§5.8). La langue de la requête ne change que des libellés, que
+  l'adaptateur traduit. Exclut : `/movies` comme source de « ce qui joue »
+  (ses drapeaux sont nationaux, et il contient des fiches de test).
+- **Version : attribut au mieux, jamais clé** (proposition du 2026-10-09) :
+  l'adaptateur déduit langue audio et sous-titres de `language` /
+  `subtitleLanguage` ; libellé vide ou inconnu → « inconnue », libellé brut
+  conservé. Aucune règle du domaine ne dépend de la version. Raison : libellés
+  vides, faux ou incohérents chez Cineplex (`sources.md`) ; l'identité de la
+  fiche reste son `id` (D-012), donc une version fausse se voit à l'affichage
+  mais ne casse pas le diff. « VO », « VF », « VOSTFR » ne sont pas modélisés :
+  ce sont des relations à la langue d'origine de l'œuvre, que la source ne
+  donne pas (TMDB `original_language`, plus tard). Le titre de la source, affiché
+  tel quel, porte déjà la mention de version pour l'abonné.
+- **Fiches ponctuelles hors de « Parti »** (proposition du 2026-10-09) : une
+  fiche marquée ponctuelle par la source (Cineplex `isEvent` : opéra,
+  concert ; Cinémathèque : toute la programmation) n'apparaît jamais dans
+  « Parti ». Raison : « Parti : Macbeth (Met Opera) » le lendemain d'une
+  projection unique est du bruit. À trancher avec le diff (étape 2).
+- **Fuseau du cinéma = donnée de référence chez nous** (proposition du
+  2026-10-09, après Landmark) : chaque cinéma a un fuseau IANA saisi ou
+  dérivé de ses coordonnées, jamais de la province. Raison : Landmark ne
+  donne que l'heure locale (« 7:10 PM ») et aucun fuseau ; la Saskatchewan
+  n'observe pas l'heure avancée (`America/Regina`), et des villes de C.-B.
+  (Fort St. John, Cranbrook) ne sont pas à l'heure du Pacifique (**à
+  vérifier** cas par cas). Confirmé par `/cinemas/22` : aucun champ
+  géographique, et la région de l'URL est fausse pour Calgary Market Mall
+  (classé en C.-B.) ; sept fuseaux IANA pour les 45 cinémas Landmark.
+  L'adaptateur Landmark reçoit le fuseau en entrée pour produire l'instant
+  (D-005).
+- **Réponse inattendue = collecte échouée** (proposition du 2026-10-09, après
+  Landmark) : un statut autre que 200, un corps qui n'est pas le JSON attendu
+  (page HTML de blocage, refonte du site) fait échouer l'adaptateur
+  bruyamment ; il ne renvoie jamais une programmation vide. Raison : D-003 ;
+  sinon un blocage ferait « partir » tous les films.
+- **Pas de contournement d'anti-robots** (proposition du 2026-10-09) : une
+  source qui refuse les clients automatisés (Landmark : 403 Akamai) n'est
+  collectée qu'avec son accord. Ni imitation de navigateur, ni navigateur sans
+  tête. Raison : même principe que §5.2 (pas de ré-extraction de clé) ; un
+  accès obtenu en déjouant un refus peut être coupé à tout moment et engage
+  la responsabilité du projet.
+  Précision (2026-10-09, après Bruno → 200 là où `curl` → 403) : un client
+  qui s'identifie honnêtement (`User-Agent: CinemaTower/<version>
+  (+<adresse de contact>)`), à une requête par cinéma et par jour, n'est pas
+  un contournement. Ce qui l'est : choisir son agent ou ses en-têtes *pour*
+  passer le filtre. Si le client honnête est refusé, on s'arrête là.
+- **Une semaine n'entre dans le diff que publiée en entier** (proposition du
+  2026-10-09, après Landmark) : la collecte du vendredi ne contient la
+  semaine suivante que pour les nouveautés ; les films à l'affiche n'y sont
+  pas encore. Comparer S+1 ce jour-là produirait un faux « Parti » massif,
+  le même défaut que D-003 sous une autre forme. Le jour d'envoi doit suivre
+  la publication complète de **toutes** les sources suivies (Landmark :
+  mercredi annoncé ; Cineplex : Q10). Corollaire : les avant-premières du
+  jeudi tombent dans la semaine précédant la sortie ; à trancher avec Q10.
+- **D-010 réécrite** (proposition du 2026-10-09) : chaque fiche s'affiche avec
+  le titre que la source lui donne ; un abonné EN au Québec voit « Other
+  Mommy » et « Autre Maman » comme deux lignes. Le regroupement VF/VO sur une
+  ligne vient avec TMDB (D-009, D-012).
 
 Prochaines vérifications, par ordre de priorité (détail dans `sources.md`) :
 1. Paramètre `date` envoyé ou non dans la requête 9195 du 2026-10-09 (Q7).
 2. Q14 : `ticketingUrl` / `deeplinkUrl` en fenêtre privée.
-3. Q1 : `name` et `id` d'une fiche avec `language=en` (débloque D-010).
-4. Q6 : `showStartDateTimeUtc` sur Vancouver (1422).
-5. Q11 : champs de `/movies` pour Verity VO / VF.
-6. Q10 : Bruno 05 chaque jour du lundi au vendredi.
-7. Q5 : forme du 401.
+3. Q6 : `showStartDateTimeUtc` sur Vancouver (1422).
+4. Q10 : Bruno 05 chaque jour du lundi au vendredi.
+5. Q5 : forme du 401.

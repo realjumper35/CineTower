@@ -1,0 +1,17 @@
+meta {
+  name: 03 Page des séances (HTML)
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{landmarkSiteUrl}}/showtimes/orleans
+  body: none
+  auth: none
+}
+
+docs {
+  Page publique du cinéma ; les séances y sont intégrées dans la variable
+  JavaScript pc.showtimesdata. Avec curl : 403 Akamai, comme l'API.
+  Sert à savoir si le refus vise l'API seule ou tout le site.
+}
