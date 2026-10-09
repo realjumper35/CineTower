@@ -5,24 +5,41 @@ Squelette du produit. Le détail d'un sujet creusé va dans un fichier dédié
 
 ## Produit
 
-Infolettre courriel hebdomadaire, bilingue FR/EN : les films qui **entrent** et
-**sortent** de l'affiche dans les cinémas choisis par l'abonné. Le cœur du produit
-est le **diff**, pas un catalogue.
+Infolettre courriel hebdomadaire, FR ou EN au choix de l'abonné, pour les
+cinémas qu'il suit : **nouveau partout** en tête, puis par cinéma **à l'affiche**
+(nouveautés marquées) et **parti** (D-008). Le cœur du produit est le **diff**.
+Chaque film mène à une page CinemaTower qui liste ses séances, puis à la
+réservation chez la source. Le site sert à s'inscrire et à ces pages ; pas de
+catalogue à parcourir.
 
 ## Périmètre
 
 - Canada.
 - Sources initiales : Cineplex (API JSON non documentée), Landmark (pas encore
   reconnue), Cinémathèque québécoise (pages HTML, billetterie externe).
-- Métadonnées de films : TMDB.
+- TMDB : regroupement des fiches d'une même œuvre (VF/VO, entre sources), après
+  l'étape 1 (D-009, D-012).
 
 ## Technique
 
-Java 21, Spring Boot 3, PostgreSQL, Thymeleaf.
+Java 25, Spring Boot 4, PostgreSQL, Thymeleaf (D-006).
 
 ## Feuille de route
 
-1. Infolettre hebdomadaire (le diff).
+1. Infolettre hebdomadaire (le diff), en tranche verticale sur Cineplex et un
+   seul cinéma :
+   0. Lever les inconnues bloquantes (Bruno), écrire les décisions qui en
+      dépendent.
+   1. Squelette : classe d'application, Maven Wrapper, profil de test,
+      Flyway `V1`, un test d'intégration contre `cinematower_test`.
+   2. Domaine pur (fiche, séance, collecte réussie/échouée, diff), sans Spring.
+   3. Port `SourceProgrammation` et adaptateur Cineplex, testé sur des réponses
+      réelles enregistrées, sans réseau.
+   4. Persistance : schéma, `JdbcClient`, collecte idempotente.
+   5. Collecte quotidienne planifiée, diff journalisé. Y arriver vite : chaque
+      jour sans collecte est de l'historique perdu.
+   6. Rendu de l'infolettre et de la page film × cinéma (Thymeleaf), sans envoi.
+   7. Abonnés, envoi, LCAP.
 2. Flux `.ics` (tiré par le client) et alerte immédiate (poussée) : deux
    fonctionnalités distinctes.
 3. Surveillance de sièges.

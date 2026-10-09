@@ -24,26 +24,21 @@ Concrètement :
 - Tu dis quand une question est prématurée, et pourquoi. « On tranchera ça quand
   on aura mesuré X » est une réponse valide et souvent la bonne.
 
-## 2. Mode actuel : préparation
+## 2. Mode actuel : construction
 
-**On ne code pas.** Le projet est en phase de conception. Tant que cette section
-n'a pas changé (c'est Yohan qui la change) :
+La phase de conception est close (2026-10-09). On construit l'étape 1 de la
+feuille de route en tranche verticale, dans l'ordre des sous-étapes de
+`cinematower.md`.
 
-- Pas de code sauf si Yohan le demande explicitement, ou si un extrait de 5 à 15
-  lignes est le moyen le plus court d'illustrer un point d'architecture.
-- Pas de scaffolding, pas de `pom.xml`, pas d'arborescence à générer.
-- Les livrables de cette phase sont : des décisions tranchées, des questions
-  ouvertes formulées correctement, et des vérifications à faire.
-
-Ce qui a le plus de valeur maintenant, dans l'ordre :
-
-1. Repérer les décisions **irréversibles** (schéma de données, granularité du
-   diff, identifiants, horodatage) et les traiter en priorité.
-2. Repérer les **inconnues bloquantes** — ce qui doit être mesuré ou vérifié
-   avant de pouvoir décider — et proposer comment les lever. La liste courante est
-   dans `sources.md`.
-3. Ignorer tout le reste. Un choix réversible se tranche en cinq minutes le jour
-   où on l'écrit.
+- Le code se fait à la demande de Yohan, une sous-étape à la fois ; chacune se
+  termine par un critère vérifiable (`./mvnw verify` vert, test qui passe).
+- Une décision prise en codant s'écrit dans `decisions.md` au moment où elle est
+  prise. Une proposition non validée par Yohan va dans la section « En attente »
+  de `decisions.md`, jamais comme décision numérotée.
+- Les tests d'adaptateur tournent sur des réponses réelles enregistrées
+  (fixtures), jamais sur le réseau (§5.8).
+- Un choix réversible se tranche en codant ; on ne s'arrête que sur
+  l'irréversible (schéma, identifiants, URL envoyées par courriel).
 
 ## 3. Comment mener la discussion
 
@@ -86,8 +81,7 @@ Règles :
 
 1. **Clés d'API.** La clé Cineplex vit dans un `.env` ignoré par Git, sous
    `CINEPLEX_SUBSCRIPTION_KEY`. Jamais dans le code, un fichier versionné, un log,
-   un message de commit ou une réponse. Ne jamais lire ni afficher le contenu de
-   `.env`. Même règle pour toute clé d'une future source.
+   un message de commit ou une réponse.
 2. **401 = échec bruyant.** Un refus de clé arrête la collecte de cette source avec
    un message explicite. **Jamais** de ré-extraction automatique de la clé depuis le
    site de la source, même si des projets tiers le font. Si les réponses le
