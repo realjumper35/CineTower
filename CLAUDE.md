@@ -79,9 +79,9 @@ Règles :
 
 ## 5. Garde-fous non négociables
 
-1. **Clés d'API.** La clé Cineplex vit dans un `.env` ignoré par Git, sous
-   `CINEPLEX_SUBSCRIPTION_KEY`. Jamais dans le code, un fichier versionné, un log,
-   un message de commit ou une réponse.
+1. **Clés d'API.** La clé Cineplex de l'application vit dans un `.env` ignoré par
+   Git, sous `CINEPLEX_SUBSCRIPTION_KEY`. Jamais dans le code, un fichier
+   versionné (sauf `bruno/.env`, D-013), un log ou un message de commit.
 2. **401 = échec bruyant.** Un refus de clé arrête la collecte de cette source avec
    un message explicite. **Jamais** de ré-extraction automatique de la clé depuis le
    site de la source, même si des projets tiers le font. Si les réponses le

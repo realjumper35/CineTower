@@ -1,5 +1,7 @@
 # Secrets (CLAUDE.md §5.1) — à toute profondeur
 .env
+# Exception (D-013) : la clé Cineplex de Bruno est publique, on la versionne
+!bruno/.env
 
 # IDE et build
 .idea/

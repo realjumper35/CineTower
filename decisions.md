@@ -164,6 +164,14 @@ celle qui la remplace.
   Le regroupement VF/VO sur une même ligne viendra plus tard, à l'affichage
   seulement, à partir de TMDB (D-009), sans toucher au diff.
 
+**D-013 — La clé Cineplex de Bruno est versionnée dans `bruno/.env`.** _(2026-10-09, choix de Yohan)_
+- Raison : la clé n'est pas un secret, cineplex.com la sert à tout visiteur ;
+  la versionner évite de la recopier à la main sur chaque poste. Risque
+  accepté en connaissance de cause : la clé reste dans l'historique Git après
+  une rotation, et un dépôt public l'expose à la lecture.
+- Exclut : toute autre clé ou secret dans un fichier versionné ; le `.env`
+  de l'application reste ignoré (CLAUDE.md §5.1).
+
 ---
 
 ## En attente
