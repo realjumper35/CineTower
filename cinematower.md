@@ -30,12 +30,12 @@ Java 25, Spring Boot 4, PostgreSQL, Thymeleaf (D-006).
    seul cinéma :
    0. Lever les inconnues bloquantes (Bruno), écrire les décisions qui en
       dépendent.
-   1. Squelette : classe d'application, Maven Wrapper, profil de test,
-      Flyway `V1`, un test d'intégration contre `cinematower_test`.
+   1. Squelette : classe d'application, Maven Wrapper.
    2. Domaine pur (fiche, séance, collecte réussie/échouée, diff), sans Spring.
    3. Port `SourceProgrammation` et adaptateur Cineplex, testé sur des réponses
       réelles enregistrées, sans réseau.
-   4. Persistance : schéma, `JdbcClient`, collecte idempotente.
+   4. Persistance : base `cinematower_test`, profil de test, Flyway `V1`,
+      schéma, `JdbcClient`, collecte idempotente, premier test d'intégration.
    5. Collecte quotidienne planifiée, diff journalisé. Y arriver vite : chaque
       jour sans collecte est de l'historique perdu.
    6. Rendu de l'infolettre et de la page film × cinéma (Thymeleaf), sans envoi.

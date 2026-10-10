@@ -5,14 +5,15 @@ meta {
 }
 
 get {
-  url: {{cineplexBaseUrl}}/showtimes?language=fr&locationId=9406
+  url: {{cineplexBaseUrl}}/showtimes?language=fr&locationId=9195
   body: none
   auth: none
 }
 
 params:query {
   language: fr
-  locationId: 9406
+  @description('9406')
+  locationId: 9195
 }
 
 headers {
